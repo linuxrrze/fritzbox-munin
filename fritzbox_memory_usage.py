@@ -23,8 +23,19 @@ import sys
 import fritzbox_helper as fh
 
 PAGE = '/system/ecostat.lua'
-pattern = re.compile('Query[1-3]\s="(\d{1,3})')
-USAGE = ['free', 'cache', 'strict']
+
+# Sample output:
+# ["cpu:status/StatRAMCacheUsed"] =
+# ["cpu:status/StatRAMPhysFree"] = 
+# ["cpu:status/StatRAMStrictlyUsed"] =
+
+pattern = re.compile('\[\"cpu:status/StatRAM(.+)\"\]\s=\s"(\d{1,3})')
+USAGE = ['PhysFree', 'CacheUsed', 'StrictlyUsed']
+label = {
+         'PhysFree': 'free',
+         'CacheUsed': 'cache',
+         'StrictlyUsed': 'strict'
+         }
 
 # bet box name from first part before '_' in (symlink) file name
 boxname = os.path.basename(__file__).rsplit('_')[0]
@@ -41,9 +52,9 @@ def get_memory_usage():
     data = fh.get_page(server, sid, PAGE)
     matches = re.finditer(pattern, data)
     if matches:
-        data = zip(USAGE, [m.group(1) for m in matches])
+        data = zip(USAGE, [m.group(2) for m in matches])
         for d in data:
-            print'%s.value %s' % (d[0], d[1])
+            print'%s.value %s' % (label[d[0]], d[1])
 
 
 def print_config():
