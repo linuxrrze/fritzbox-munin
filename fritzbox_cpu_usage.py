@@ -23,7 +23,7 @@ import sys
 import fritzbox_helper as fh
 
 PAGE = '/system/ecostat.lua'
-pattern = re.compile('Query1\s=\s"(\d{1,3})')
+pattern = re.compile('\[\"cpu:status/StatCPU\"\]\s=\s"(\d{1,3})')
 
 # bet box name from first part before '_' in (symlink) file name
 boxname = os.path.basename(__file__).rsplit('_')[0]
