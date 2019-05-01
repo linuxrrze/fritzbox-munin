@@ -17,7 +17,7 @@
 """
 
 import hashlib
-import httplib
+import http.client
 import re
 import sys
 from xml.dom import minidom
@@ -27,7 +27,7 @@ USER_AGENT = "Mozilla/5.0 (U; Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0
 
 def get_sid(server, password, port=80):
     """Obtains the sid after login into the fritzbox"""
-    conn = httplib.HTTPConnection(server + ':' + str(port))
+    conn = http.client.HTTPConnection(server + ':' + str(port))
 
     headers = {"Accept": "application/xml",
                "Content-Type": "text/plain",
@@ -47,7 +47,7 @@ def get_sid(server, password, port=80):
         if sid == "0000000000000000":
             challenge_info = xml_data.getElementsByTagName('Challenge')
             challenge = challenge_info[0].firstChild.data
-            challenge_bf = (challenge + '-' + password).decode('iso-8859-1').encode('utf-16le')
+            challenge_bf = (challenge + '-' + password).encode('utf-16le')
             m = hashlib.md5()
             m.update(challenge_bf)
             response_bf = challenge + '-' + m.hexdigest().lower()
@@ -66,7 +66,7 @@ def get_sid(server, password, port=80):
         print ( "%s %s" % (response.status, response.reason) )
         sys.exit(0)
     else:
-        sid = re.search("<SID>(.*?)</SID>", data).group(1)
+        sid = re.search("<SID>(.*?)</SID>", str(data)).group(1)
         if sid == "0000000000000000":
             print ( "ERROR - No SID received because of invalid password" )
             sys.exit(0)
@@ -75,7 +75,7 @@ def get_sid(server, password, port=80):
 
 def get_page(server, sid, page, port=80):
     """Fetches a page from the Fritzbox and returns its content"""
-    conn = httplib.HTTPConnection(server + ':' + str(port))
+    conn = http.client.HTTPConnection(server + ':' + str(port))
 
     headers = {"Accept": "application/xml",
                "Content-Type": "text/plain",
