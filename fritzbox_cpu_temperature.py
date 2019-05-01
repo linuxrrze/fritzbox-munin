@@ -36,27 +36,27 @@ def get_cpu_temperature():
 
     m = re.search(pattern, data)
     if m:
-        print 'temp.value %d' % (int(m.group(2).split(',')[0]))
+        print ( 'temp.value %d' % (int(m.group(2).split(',')[0])) )
 
 
 def print_config():
-    print "graph_title AVM Fritz!Box CPU temperature"
-    print "graph_vlabel degrees Celsius"
-    print "graph_category sensors"
-    print "graph_order tmp"
-    print "graph_scale no"
-    print "temp.label CPU temperature"
-    print "temp.type GAUGE"
-    print "temp.graph LINE1"
-    print "temp.min 0"
-    print "temp.info Fritzbox CPU temperature"
+    print ( "graph_title AVM Fritz!Box CPU temperature" )
+    print ( "graph_vlabel degrees Celsius" )
+    print ( "graph_category sensors" )
+    print ( "graph_order tmp" )
+    print ( "graph_scale no" )
+    print ( "temp.label CPU temperature" )
+    print ( "temp.type GAUGE" )
+    print ( "temp.graph LINE1" )
+    print ( "temp.min 0" )
+    print ( "temp.info Fritzbox CPU temperature" )
 
 
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
         print_config()
     elif len(sys.argv) == 2 and sys.argv[1] == 'autoconf':
-        print 'yes'
+        print ( 'yes' )
     elif len(sys.argv) == 1 or len(sys.argv) == 2 and sys.argv[1] == 'fetch':
         # Some docs say it'll be called with fetch, some say no arg at all
         try:

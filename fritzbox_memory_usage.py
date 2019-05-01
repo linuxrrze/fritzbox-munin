@@ -37,33 +37,33 @@ def get_memory_usage():
     matches = re.finditer(pattern, data)
     if matches:
         for m in matches:
-            print'%s.value %d' % (USAGE_MAPPING[m.group(1)], int(m.group(2).split(',')[0]))
+            print ( '%s.value %d' % (USAGE_MAPPING[m.group(1)], int(m.group(2).split(',')[0])) )
 
 
 def print_config():
-    print "graph_title AVM Fritz!Box Memory"
-    print "graph_vlabel %"
-    print "graph_args --base 1000 -r --lower-limit 0 --upper-limit 100"
-    print "graph_category system"
-    print "graph_order strict cache free"
-    print "graph_info This graph shows what the Fritzbox uses memory for."
-    print "graph_scale no"
-    print "strict.label strict"
-    print "strict.type GAUGE"
-    print "strict.draw AREA"
-    print "cache.label cache"
-    print "cache.type GAUGE"
-    print "cache.draw STACK"
-    print "free.label free"
-    print "free.type GAUGE"
-    print "free.draw STACK"
+    print ( "graph_title AVM Fritz!Box Memory" )
+    print ( "graph_vlabel %" )
+    print ( "graph_args --base 1000 -r --lower-limit 0 --upper-limit 100" )
+    print ( "graph_category system" )
+    print ( "graph_order strict cache free" )
+    print ( "graph_info This graph shows what the Fritzbox uses memory for." )
+    print ( "graph_scale no" )
+    print ( "strict.label strict" )
+    print ( "strict.type GAUGE" )
+    print ( "strict.draw AREA" )
+    print ( "cache.label cache" )
+    print ( "cache.type GAUGE" )
+    print ( "cache.draw STACK" )
+    print ( "free.label free" )
+    print ( "free.type GAUGE" )
+    print ( "free.draw STACK" )
 
 
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
         print_config()
     elif len(sys.argv) == 2 and sys.argv[1] == 'autoconf':
-        print 'yes'
+        print ( 'yes' )
     elif len(sys.argv) == 1 or len(sys.argv) == 2 and sys.argv[1] == 'fetch':
         # Some docs say it'll be called with fetch, some say no arg at all
         try:

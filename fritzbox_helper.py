@@ -38,7 +38,7 @@ def get_sid(server, password, port=80):
     response = conn.getresponse()
     data = response.read()
     if response.status != 200:
-        print "%s %s" % (response.status, response.reason)
+        print ( "%s %s" % (response.status, response.reason) )
         sys.exit(0)
     else:
         xml_data = minidom.parseString(data)
@@ -63,12 +63,12 @@ def get_sid(server, password, port=80):
     response = conn.getresponse()
     data = response.read()
     if response.status != 200:
-        print "%s %s" % (response.status, response.reason)
+        print ( "%s %s" % (response.status, response.reason) )
         sys.exit(0)
     else:
         sid = re.search("<SID>(.*?)</SID>", data).group(1)
         if sid == "0000000000000000":
-            print "ERROR - No SID received because of invalid password"
+            print ( "ERROR - No SID received because of invalid password" )
             sys.exit(0)
         return sid
 
@@ -86,8 +86,8 @@ def get_page(server, sid, page, port=80):
     response = conn.getresponse()
     data = response.read()
     if response.status != 200:
-        print "%s %s" % (response.status, response.reason)
-        print data
+        print ( "%s %s" % (response.status, response.reason) )
+        print ( data )
         sys.exit(0)
     else:
         return data

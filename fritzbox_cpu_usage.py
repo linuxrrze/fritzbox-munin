@@ -36,27 +36,27 @@ def get_cpu_usage():
 
     m = re.search(pattern, data)
     if m:
-        print 'cpu.value %d' % (int(m.group(2).split(',')[0]))
+        print ( 'cpu.value %d' % (int(m.group(2).split(',')[0])) )
 
 
 def print_config():
-    print "graph_title AVM Fritz!Box CPU usage"
-    print "graph_vlabel %"
-    print "graph_category system"
-    print "graph_order cpu"
-    print "graph_scale no"
-    print "cpu.label system"
-    print "cpu.type GAUGE"
-    print "cpu.graph AREA"
-    print "cpu.min 0"
-    print "cpu.info Fritzbox CPU usage"
+    print ( "graph_title AVM Fritz!Box CPU usage" )
+    print ( "graph_vlabel %" )
+    print ( "graph_category system" )
+    print ( "graph_order cpu" )
+    print ( "graph_scale no" )
+    print ( "cpu.label system" )
+    print ( "cpu.type GAUGE" )
+    print ( "cpu.graph AREA" )
+    print ( "cpu.min 0" )
+    print ( "cpu.info Fritzbox CPU usage" )
 
 
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
         print_config()
     elif len(sys.argv) == 2 and sys.argv[1] == 'autoconf':
-        print 'yes'
+        print ( 'yes' )
     elif len(sys.argv) == 1 or len(sys.argv) == 2 and sys.argv[1] == 'fetch':
         # Some docs say it'll be called with fetch, some say no arg at all
         try:
